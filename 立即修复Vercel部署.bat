@@ -1,9 +1,22 @@
 @echo off
 chcp 65001 >nul
+cd /d "%~dp0"
 echo ========================================
 echo 🚀 立即修复 Vercel 部署
 echo ========================================
 echo.
+echo 当前目录: %CD%
+echo.
+
+REM 检查是否是 Git 仓库
+if not exist .git (
+    echo [错误] 当前目录不是 Git 仓库！
+    echo.
+    echo 请先运行：初始化Git并推送.bat
+    echo.
+    pause
+    exit /b 1
+)
 
 echo [1/3] 添加修复的文件...
 git add components/HistoryTimeline.tsx app/page.tsx vercel.json types/common.ts
